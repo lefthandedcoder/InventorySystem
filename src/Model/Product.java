@@ -5,6 +5,9 @@
  */
 package Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author Christian Dye
@@ -12,7 +15,7 @@ package Model;
 public class Product {
     
     //Declare fields
-
+    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     /**
      * the id
      */
@@ -157,6 +160,22 @@ public class Product {
         this.max = max;
     }
     
+    public static void addAssociatedPart(Part part){
+        associatedParts.add(part);
+    }    
     
+    public static boolean deleteAssociatedPart(Part selectedAssociatedPart){
+        if (associatedParts.contains(selectedAssociatedPart)){
+            associatedParts.remove(selectedAssociatedPart);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    public static ObservableList<Part> getAllAssociatedParts(){
+        return associatedParts;
+    }
     
 }
