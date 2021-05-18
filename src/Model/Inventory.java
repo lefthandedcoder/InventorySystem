@@ -27,51 +27,51 @@ public class Inventory {
     }
     
     public static Part lookupPart(int partID){
-        Part partRetrieved = null;
+        Part partLookup = null;
         
         for (Part part : allParts) {
             if (part.getId() == partID) {
-                partRetrieved = part;
+                partLookup = part;
             }
         }
         
-        return partRetrieved;
+        return partLookup;
     }
     
     public static Product lookupProduct(int productID){
-        Product productRetrieved = null;
+        Product productLookup = null;
         
         for (Product product : allProducts) {
             if (product.getId() == productID) {
-                productRetrieved = product;
+                productLookup = product;
             }
         }
         
-        return productRetrieved;
+        return productLookup;
     }
     
     public static ObservableList<Part> lookupPart(String partName){
-        ObservableList<Part> partsRetrieved = null;
+        ObservableList<Part> partsLookup = null;
         
         for (Part part : allParts) {
             if (part.getName().equals(partName)) {
-                partsRetrieved.add(part);
+                partsLookup.add(part);
             }
         }
         
-        return partsRetrieved;
+        return partsLookup;
     }
     
     public static ObservableList<Product> lookupProduct(String productName){
-        ObservableList<Product> productsRetrieved = null;
+        ObservableList<Product> productsLookup = null;
         
         for (Product product : allProducts) {
             if (product.getName().equals(productName)) {
-                productsRetrieved.add(product);
+                productsLookup.add(product);
             }
         }
         
-        return productsRetrieved;
+        return productsLookup;
     }
     
     public static void updatePart(int index, Part selectedPart){ 
