@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import java.io.IOException;
@@ -24,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Inventory;
 import model.Part;
-import model.Product;
 
 /**
  * FXML Controller class
@@ -80,7 +74,7 @@ public class AddProductController implements Initializable {
     }
 
     @FXML
-    void onActionDisplayMainMenu(ActionEvent event) throws IOException {        
+    void onActionDisplayMainMenu(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/Main.fxml"));
         stage.setScene(new Scene(scene));
@@ -94,55 +88,11 @@ public class AddProductController implements Initializable {
 
     @FXML
     void onActionSaveProduct(ActionEvent event) throws IOException {
-        try {
-            int id = 0;
-            String name = productNameTxt.getText();
-            Double price = Double.parseDouble(productPriceTxt.getText());
-            int stock = Integer.parseInt(productInvTxt.getText());
-            int min = Integer.parseInt(minInvTxt.getText());
-            int max = Integer.parseInt(maxInvTxt.getText());
-
-            if (name.isEmpty()) {
-                //Warning
-            } else {
-                if (minCheck(min, max) && inventoryCheck(min, max, stock)) {
-                    Product newProduct = new Product(id, name, price, stock, min, max);
-                    for (Part part : currParts) {
-                        newProduct.addAssociatedPart(part);
-                    }
-
-                    newProduct.setId(Inventory.getNewProductId());
-                    Inventory.addProduct(newProduct);
-                    onActionDisplayMainMenu(event);
-                }
-            }
-        } catch (Exception e){
-            //Warning
-        }
     }
 
     @FXML
     void onActionSearchPart(ActionEvent event) {
 
-    }
-    
-    private boolean minCheck(int min, int max) {
-
-        boolean isTrue = true;
-
-        if (min <= 0 || min >= max) {
-            isTrue = false;
-        }
-
-        return isTrue;
-    }
-    
-    private boolean inventoryCheck(int min, int max, int stock) {
-        boolean isTrue = true;
-        if (stock < min || stock > max) {
-            isTrue = false;
-        }
-        return isTrue;
     }
 
     /**

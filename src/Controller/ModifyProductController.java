@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Inventory;
 import model.Part;
-import model.Product;
 
 /**
  * FXML Controller class
@@ -35,7 +27,6 @@ public class ModifyProductController implements Initializable {
     
     Stage stage;
     Parent scene;
-    private ObservableList<Part> currParts = FXCollections.observableArrayList();
     
     @FXML
     private TextField productIDTxt;
@@ -74,13 +65,10 @@ public class ModifyProductController implements Initializable {
 
     @FXML
     void onActionAddPart(ActionEvent event) {
-        Part selectedPart = availPartsTableView.getSelectionModel().getSelectedItem();
-        currParts.add(selectedPart);
-        currPartsTableView.setItems(currParts);
     }
 
     @FXML
-    void onActionDisplayMainMenu(ActionEvent event) throws IOException {        
+    void onActionDisplayMainMenu(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/Main.fxml"));
         stage.setScene(new Scene(scene));
@@ -99,20 +87,12 @@ public class ModifyProductController implements Initializable {
     void onActionSearchPart(ActionEvent event) {
     }
     
-    private boolean inventoryCheck(int min, int max, int stock) {
-        boolean isValid = true;
-
-        if (stock < min || stock > max) {
-            isValid = false;
-        }
-        return isValid;
-    }
-
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        
+    public void initialize(URL url, ResourceBundle rb) {
+        
         availPartIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         availPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         availPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -123,7 +103,5 @@ public class ModifyProductController implements Initializable {
         currPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         currPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         currPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        currPartsTableView.setItems(currParts);
     }
-    
 }

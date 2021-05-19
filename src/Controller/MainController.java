@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import java.io.IOException;
@@ -26,27 +21,19 @@ import model.Product;
 /**
  * FXML Controller class
  *
- * @author chris
+ * @author Christian Dye
  */
 public class MainController implements Initializable {
     Stage stage;
     Parent scene;
-    
     private static Part partModify;
     private static Product productModify;
 
     public static Part getPartModify() {
         return partModify;
     }
-    public static void setPartModify(Part partModify) {
-        MainController.partModify = partModify;
-    }
-    
     public static Product getProductModify() {
         return productModify;
-    }
-    public static void setProductModify(Product productModify) {
-        MainController.productModify = productModify;
     }
     
     @FXML
@@ -73,12 +60,14 @@ public class MainController implements Initializable {
 
     @FXML
     void onActionDeletePart(ActionEvent event) {
-
+        Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
+        Inventory.deletePart(selectedPart);
     }
 
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
-
+        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(selectedProduct);
     }
 
     @FXML
@@ -99,6 +88,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onActionDisplayModifyPart(ActionEvent event) throws IOException {
+        partModify = partTableView.getSelectionModel().getSelectedItem();
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/ModifyPart.fxml"));
         stage.setScene(new Scene(scene));
@@ -107,6 +97,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onActionDisplayModifyProduct(ActionEvent event) throws IOException {
+        productModify = productTableView.getSelectionModel().getSelectedItem();
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/ModifyProduct.fxml"));
         stage.setScene(new Scene(scene));

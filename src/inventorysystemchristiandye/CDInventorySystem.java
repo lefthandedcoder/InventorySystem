@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package inventorysystemchristiandye;
 
 import javafx.application.Application;
@@ -17,7 +12,7 @@ import model.Product;
 
 /**
  *
- * @author chris
+ * @author Christian Dye
  */
 public class CDInventorySystem extends Application {
 
@@ -39,16 +34,16 @@ public class CDInventorySystem extends Application {
         // Add sample products
         int productId = Inventory.getNewProductId();
         Product bike1 = new Product(productId, "Giant Bike", 299.99, 5, 1, 10);
-        Product.addAssociatedPart(bikeBrakes);
-        Product.addAssociatedPart(bikeWheel);
-        Product.addAssociatedPart(bikeSeat);
+        bike1.addAssociatedPart(bikeBrakes);
+        bike1.addAssociatedPart(bikeWheel);
+        bike1.addAssociatedPart(bikeSeat);
         Inventory.addProduct(bike1);
         
         productId = Inventory.getNewProductId();
         Product bike2 = new Product(productId, "Tricycle", 99.99, 3, 1, 10);
-        Product.addAssociatedPart(bikeBrakes);
-        Product.addAssociatedPart(bikeWheel);
-        Product.addAssociatedPart(bikeSeat);
+        bike2.addAssociatedPart(bikeBrakes);
+        bike2.addAssociatedPart(bikeWheel);
+        bike2.addAssociatedPart(bikeSeat);
         Inventory.addProduct(bike2);
         
         launch(args);
