@@ -34,7 +34,7 @@ public class CDInventorySystem extends Application {
         InHousePart bikeHorn = new InHousePart(partId,"Horn", 5.00, 10, 1, 15, 103);
         Inventory.addPart(bikeHorn);
         
-        // Add sample product
+        // Add sample products with associated parts
         int productId = Inventory.getNewProductId();
         Product bike1 = new Product(productId, "Giant Bike", 299.99, 5, 1, 10);
         bike1.addAssociatedPart(bikeBrakes);
@@ -52,6 +52,11 @@ public class CDInventorySystem extends Application {
         launch(args);
     }
 
+    /**
+     *
+     * @param stage sets stage for application
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         

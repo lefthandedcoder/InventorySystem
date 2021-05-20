@@ -10,29 +10,74 @@ import javafx.collections.ObservableList;
 public class Inventory {
     
     // Declare fields
+
+    /**
+     * The product ID
+     */
     private static int productId = 0;
+
+    /**
+     * The part ID
+     */
     private static int partId = 0;
+
+    /**
+     * The observable list of all parts in inventory
+     */
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
+
+    /**
+     * The observable list of all products in inventory
+     */
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
+
+    /**
+     * Observable list of all products in inventory lookup
+     */
     public static ObservableList<Product> productsLookup = null;
+
+    /**
+     * Observable list of all parts in inventory lookup
+     */
     public static ObservableList<Part> partsLookup = null;
     
+    /**
+     *
+     * @param newPart is the newly added part
+     */
     public static void addPart(Part newPart){
         allParts.add(newPart);
     }
     
+    /**
+     *
+     * @param newProduct is the newly added product
+     */
     public static void addProduct(Product newProduct){
         allProducts.add(newProduct);
     }
     
+    /**
+     *
+     * @return gets new part ID
+     */
     public static int getNewPartId() {
         return ++partId;
     }
     
+    /**
+     *
+     * @return gets new product ID
+     */
     public static int getNewProductId() {
         return ++productId;
     }
     
+    /**
+     *
+     * @param partID retrieves part ID from inventory search
+     * @return
+     */
     public static Part lookupPart(int partID){
         Part partLookup = null;
         
@@ -45,6 +90,11 @@ public class Inventory {
         return partLookup;
     }
     
+    /**
+     *
+     * @param productID retrieves product ID from inventory search
+     * @return
+     */
     public static Product lookupProduct(int productID){
         Product productLookup = null;
         
@@ -57,6 +107,11 @@ public class Inventory {
         return productLookup;
     }
     
+    /**
+     *
+     * @param partName retrieves part name from inventory search
+     * @return
+     */
     public static ObservableList<Part> lookupPart(String partName){
         for (Part part : allParts) {
             if (part.getName().contains(partName)) {
@@ -67,6 +122,11 @@ public class Inventory {
         return partsLookup;
     }
     
+    /**
+     *
+     * @param productName retrieves product name from inventory search
+     * @return
+     */
     public static ObservableList<Product> lookupProduct(String productName){
         productsLookup = null;
         
@@ -79,14 +139,29 @@ public class Inventory {
         return productsLookup;
     }
     
+    /**
+     *
+     * @param index allParts inventory index
+     * @param selectedPart part to update
+     */
     public static void updatePart(int index, Part selectedPart){ 
         allParts.set(index, selectedPart);
     }
     
+    /**
+     *
+     * @param index allProducts inventory index
+     * @param selectedProduct product to update
+     */
     public static void updateProduct(int index, Product selectedProduct){ 
         allProducts.set(index, selectedProduct);
     }
     
+    /**
+     *
+     * @param selectedPart part to delete
+     * @return
+     */
     public static boolean deletePart(Part selectedPart){
         if (allParts.contains(selectedPart)){
             allParts.remove(selectedPart);
@@ -97,6 +172,11 @@ public class Inventory {
         }
     }
     
+    /**
+     *
+     * @param selectedProduct product to delete
+     * @return
+     */
     public static boolean deleteProduct(Product selectedProduct){
         if (allProducts.contains(selectedProduct)){
             allProducts.remove(selectedProduct);
@@ -107,10 +187,18 @@ public class Inventory {
         }
     }
     
+    /**
+     * gets all parts
+     * @return
+     */
     public static ObservableList<Part> getAllParts(){
         return allParts;
     }
     
+    /**
+     * gets all products
+     * @return
+     */
     public static ObservableList<Product> getAllProducts(){
         return allProducts;
     }

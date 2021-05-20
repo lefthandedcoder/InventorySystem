@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,56 +33,195 @@ import model.Product;
  * @author Christian Dye
  */
 public class MainController implements Initializable {
+
+    /**
+     * Stage for switching windows
+     */
     Stage stage;
+
+    /**
+     * Scene for switching windows
+     */
     Parent scene;
+
+    /**
+     * part to modify
+     */
     private static Part partModify;
+
+    /**
+     * product to modify
+     */
     private static Product productModify;
 
+    /**
+     * retrieves part to modify
+     * @return
+     */
     public static Part getPartModify() {
         return partModify;
     }
+
+    /**
+     * retrieves product to modify
+     * @return
+     */
     public static Product getProductModify() {
         return productModify;
     }
     
+    /**
+     * part search box
+     */
     @FXML
     private TextField partSearchBox;
+
+    /**
+     * part table
+     */
     @FXML
     private TableView<Part> partTableView;    
+
+    /**
+     * part ID column
+     */
     @FXML
     private TableColumn<Part, Integer> partIDCol;
+
+    /**
+     * part name column
+     */
     @FXML
     private TableColumn<Part, String> partNameCol;
+
+    /**
+     * part inventory column
+     */
     @FXML
     private TableColumn<Part, Integer> partInvCol;
+
+    /**
+     * part price column
+     */
     @FXML
     private TableColumn<Part, Double> partPriceCol;
     
+    /**
+     * part search message label
+     */
+    @FXML
+    private Label partSearchLabel;
+    
+    /**
+     * product search box
+     */
     @FXML
     private TextField productSearchBox;
+
+    /**
+     * product table
+     */
     @FXML
     private TableView<Product> productTableView;
+
+    /**
+     * product ID column
+     */
     @FXML
     private TableColumn<Product, Integer> productIDCol;
+
+    /**
+     * product name column
+     */
     @FXML
     private TableColumn<Product, String> productNameCol;
+
+    /**
+     * product inventory column
+     */
     @FXML
     private TableColumn<Product, Integer> productInvCol;
+
+    /**
+     * product price column
+     */
     @FXML
     private TableColumn<Product, Double> productPriceCol;
+    
+    /**
+     * product search message
+     */
+    @FXML
+    private Label productSearchLabel;
 
+    /**
+     * Delete part event
+     * @param event
+     */
     @FXML
     void onActionDeletePart(ActionEvent event) {
-        Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(selectedPart);
+        Part partDelete = partTableView.getSelectionModel().getSelectedItem();
+        if (partDelete == null) {
+            //No part selected
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Delete Part");
+            alert.setContentText("Part not selected.");
+            Optional<ButtonType> result = alert.showAndWait();
+        } else {
+            //Delete part ocnfirmation
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Part");
+            alert.setContentText("Delete the selected part?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Inventory.deletePart(partDelete);
+            }
+        }
     }
 
+    /**
+     * Delete product event
+     * @param event
+     */
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
-        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(selectedProduct);
+        Product productDelete = productTableView.getSelectionModel().getSelectedItem();
+        if (productDelete == null) {
+            //No product selected
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Delete Product");
+            alert.setContentText("Product not selected.");
+            Optional<ButtonType> result = alert.showAndWait();
+        } else {
+            // Delete product confirmation
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Product");
+            alert.setContentText("Delete the selected product?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+
+                ObservableList<Part> assocParts = productDelete.getAllAssociatedParts();
+                
+                // Associated parts exception
+                if (assocParts.size() >= 1) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Parts Associated");
+                    alert.setContentText("Remove all parts from product before deletion.");
+                    alert.showAndWait();
+                } else {
+                    Inventory.deleteProduct(productDelete);
+                }
+            }
+        }
     }
 
+    /**
+     * Add part event
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionDisplayAddPart(ActionEvent event) throws IOException {        
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -87,6 +230,11 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Add product event
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionDisplayAddProduct(ActionEvent event) throws IOException {        
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -95,31 +243,70 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Modify part event
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionDisplayModifyPart(ActionEvent event) throws IOException {
         partModify = partTableView.getSelectionModel().getSelectedItem();
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyPart.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();        
+        if (partModify == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Modify Part");
+            alert.setContentText("Part not selected.");
+            Optional<ButtonType> result = alert.showAndWait();
+        } else {
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/ModifyPart.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();  
+        }        
     }
 
+    /**
+     * Modify product event
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionDisplayModifyProduct(ActionEvent event) throws IOException {
         productModify = productTableView.getSelectionModel().getSelectedItem();
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyProduct.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();        
+        
+        if (productModify == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Modify Product");
+            alert.setContentText("Product not selected.");
+            Optional<ButtonType> result = alert.showAndWait();
+        } else {
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/ModifyProduct.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();  
+        }   
     }
 
+    /**
+     * Exit program event
+     * @param event
+     */
     @FXML
     void onActionExitSystem(ActionEvent event) {
-        System.exit(0);
+        // Exit confirmation
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit Program");
+        alert.setContentText("Exit program?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            System.exit(0);
+        }
     }
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -144,6 +331,7 @@ public class MainController implements Initializable {
                 // If filter text is empty, display all parts
             
                 if (newValue == null || newValue.isEmpty()) {
+                    partSearchLabel.setVisible(false);
                     return true;
                 }
             
@@ -152,8 +340,11 @@ public class MainController implements Initializable {
                 
                 if (part.getName().toLowerCase().contains(search) || Integer.valueOf(part.getId()).toString().equals(search)) {
                     return true; // Filter matches part name or id.
-                } else
+                } else {
+                    partSearchLabel.setText("Part not found!");
+                    partSearchLabel.setVisible(true);
                     return false; // Does not match.
+                }
                 
             });
         });
@@ -164,6 +355,7 @@ public class MainController implements Initializable {
                 // If filter text is empty, display all parts
             
                 if (newValue == null || newValue.isEmpty()) {
+                    productSearchLabel.setVisible(false);
                     return true;
                 }
             
@@ -172,9 +364,11 @@ public class MainController implements Initializable {
                 
                 if (product.getName().toLowerCase().contains(search) || Integer.valueOf(product.getId()).toString().equals(search)) {
                     return true; // Filter matches product name or id.
-                } else
+                } else {
+                    productSearchLabel.setText("Product not found!");
+                    productSearchLabel.setVisible(true);
                     return false; // Does not match.
-                
+                }
             });
         });
         

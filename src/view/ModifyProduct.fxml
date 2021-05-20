@@ -64,16 +64,15 @@
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </TextField>
-                              <Label text="Name" GridPane.rowIndex="3">
+                              <TextField fx:id="productNameTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Max" GridPane.rowIndex="6">
                                  <padding>
                                     <Insets left="20.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="productNameTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TextField fx:id="productInvTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <TextField fx:id="productPriceTxt" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              
-                              <Label text="Max" GridPane.rowIndex="6">
+                              <Label text="Name" GridPane.rowIndex="3">
                                  <padding>
                                     <Insets left="20.0" />
                                  </padding>
@@ -91,6 +90,23 @@
                               </Label>
                            </children>
                         </GridPane>
+                        <VBox prefHeight="65.0" prefWidth="310.0" spacing="5.0">
+                           <children>
+                              <Label fx:id="errorLabel" text="Error!" textFill="RED">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="errorTxtLabel" layoutX="10.0" layoutY="10.0" text="errorText" textFill="RED">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                        </VBox>
                      </children>
                      <padding>
                         <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
@@ -103,9 +119,20 @@
                      <children>
                         <VBox prefHeight="279.0" prefWidth="402.0" spacing="10.0">
                            <children>
-                              <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+                              <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <TextField fx:id="partSearchBox" prefHeight="25.0" prefWidth="173.0" promptText="Search by Part ID or Name" />
+                                    <Label fx:id="partSearchLabel" text="Parts not found!" textFill="RED" visible="false">
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Italic" size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="partSearchBox" prefHeight="25.0" prefWidth="173.0" promptText="Search by Part ID or Name">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding></TextField>
                                  </children>
                                  <padding>
                                     <Insets bottom="-5.0" left="10.0" />

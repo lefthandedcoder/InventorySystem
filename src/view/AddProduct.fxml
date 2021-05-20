@@ -91,6 +91,23 @@
                               </Label>
                            </children>
                         </GridPane>
+                        <VBox prefHeight="65.0" prefWidth="310.0" spacing="5.0">
+                           <children>
+                              <Label fx:id="errorLabel" text="Error!" textFill="RED">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="errorTxtLabel" layoutX="10.0" layoutY="10.0" text="errorText" textFill="RED">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                        </VBox>
                      </children>
                      <padding>
                         <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
@@ -101,19 +118,28 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
+                        <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="partSearchLabel" text="Parts not found!" textFill="RED" visible="false">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Italic" size="10.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="partSearchBox" prefHeight="25.0" prefWidth="173.0" promptText="Search by Part ID or Name">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                           <padding>
+                              <Insets bottom="-5.0" left="10.0" />
+                           </padding>
+                        </HBox>
                         <VBox prefHeight="279.0" prefWidth="402.0" spacing="10.0">
                            <children>
-                              <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-                                 <children>
-                                    <TextField onAction="#onActionSearchPart" prefHeight="25.0" prefWidth="173.0" promptText="Search by Part ID or Name" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="-5.0" left="10.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets right="20.0" />
-                                 </VBox.margin>
-                              </HBox>
                               <TableView fx:id="availPartsTableView" editable="true" prefHeight="200.0" prefWidth="375.0">
                                  <columns>
                                     <TableColumn fx:id="availPartIDCol" prefWidth="53.333346366882324" text="Part ID" />
