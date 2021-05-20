@@ -34,7 +34,10 @@
                                     <Insets right="90.0" />
                                  </padding>
                               </Label>
-                              <TextField onAction="#onActionSearchPart" prefHeight="25.0" prefWidth="136.0" promptText="Search by Part ID or Name" />
+                              <TextField fx:id="partSearchBox" prefHeight="25.0" prefWidth="136.0" promptText="Search by Part ID or Name">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></TextField>
                            </children>
                            <padding>
                               <Insets bottom="-5.0" left="10.0" />
@@ -75,7 +78,7 @@
                                     <Insets right="90.0" />
                                  </padding>
                               </Label>
-                              <TextField prefHeight="25.0" prefWidth="136.0" promptText="Search by Product ID or Name" />
+                              <TextField fx:id="productSearchBox" prefHeight="25.0" prefWidth="136.0" promptText="Search by Product ID or Name" />
                            </children>
                            <padding>
                               <Insets bottom="-5.0" left="10.0" />

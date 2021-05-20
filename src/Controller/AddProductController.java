@@ -19,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Inventory;
 import model.Part;
+import model.Product;
 
 /**
  * FXML Controller class
@@ -83,11 +84,31 @@ public class AddProductController implements Initializable {
 
     @FXML
     void onActionRemovePart(ActionEvent event) {
+        Part currPart = currPartsTableView.getSelectionModel().getSelectedItem();
+
+        currParts.remove(currPart);
+        currPartsTableView.setItems(currParts);
 
     }
 
     @FXML
     void onActionSaveProduct(ActionEvent event) throws IOException {
+        int id = 0;
+        String name = productNameTxt.getText();
+        Double price = Double.parseDouble(productPriceTxt.getText());
+        int stock = Integer.parseInt(productInvTxt.getText());
+        int min = Integer.parseInt(minInvTxt.getText());
+        int max = Integer.parseInt(maxInvTxt.getText());
+        
+        Product newProduct = new Product(id, name, price, stock, min, max);
+        
+        for (Part part : currParts) {
+                        newProduct.addAssociatedPart(part);
+                    }
+
+                    newProduct.setId(Inventory.getNewProductId());
+                    Inventory.addProduct(newProduct);
+                    onActionDisplayMainMenu(event);
     }
 
     @FXML
@@ -110,7 +131,6 @@ public class AddProductController implements Initializable {
         currPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         currPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         currPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        currPartsTableView.setItems(currParts);
     }    
     
 }

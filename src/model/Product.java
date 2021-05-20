@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 public class Product {
     
     //Declare fields
-    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     /**
      * the id
      */
@@ -155,11 +155,11 @@ public class Product {
         this.max = max;
     }
     
-    public static void addAssociatedPart(Part part){
+    public void addAssociatedPart(Part part){
         associatedParts.add(part);
     }    
     
-    public static boolean deleteAssociatedPart(Part selectedAssociatedPart){
+    public boolean deleteAssociatedPart(Part selectedAssociatedPart){
         if (associatedParts.contains(selectedAssociatedPart)){
             associatedParts.remove(selectedAssociatedPart);
             return true;
@@ -169,7 +169,7 @@ public class Product {
         }
     }
     
-    public static ObservableList<Part> getAllAssociatedParts(){
+    public ObservableList<Part> getAllAssociatedParts(){
         return associatedParts;
     }
     

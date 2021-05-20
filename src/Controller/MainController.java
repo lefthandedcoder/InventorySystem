@@ -4,6 +4,10 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Inventory;
@@ -37,6 +42,8 @@ public class MainController implements Initializable {
     }
     
     @FXML
+    private TextField partSearchBox;
+    @FXML
     private TableView<Part> partTableView;    
     @FXML
     private TableColumn<Part, Integer> partIDCol;
@@ -47,6 +54,8 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Part, Double> partPriceCol;
     
+    @FXML
+    private TextField productSearchBox;
     @FXML
     private TableView<Product> productTableView;
     @FXML
@@ -109,11 +118,6 @@ public class MainController implements Initializable {
         System.exit(0);
     }
 
-    @FXML
-    void onActionSearchPart(ActionEvent event) {
-        
-    }
-
     /**
      * Initializes the controller class.
      */
@@ -129,6 +133,62 @@ public class MainController implements Initializable {
         productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        // Wrapping observable lists (allParts and allProducts) in a filtered list
+        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.getAllParts(), p -> true);        
+        FilteredList<Product> filteredProducts = new FilteredList<>(Inventory.getAllProducts(), p -> true);
+        
+        // Setting the filter predicate whenever the filter changes
+        partSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredParts.setPredicate(part -> {
+                // If filter text is empty, display all parts
+            
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+            
+                //Compare all part names
+                String search = newValue.toLowerCase();
+                
+                if (part.getName().toLowerCase().contains(search) || Integer.valueOf(part.getId()).toString().equals(search)) {
+                    return true; // Filter matches part name or id.
+                } else
+                    return false; // Does not match.
+                
+            });
+        });
+        
+        // Setting the filter predicate whenever the filter changes
+        productSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredProducts.setPredicate(product -> {
+                // If filter text is empty, display all parts
+            
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+            
+                //Compare all part names
+                String search = newValue.toLowerCase();
+                
+                if (product.getName().toLowerCase().contains(search) || Integer.valueOf(product.getId()).toString().equals(search)) {
+                    return true; // Filter matches product name or id.
+                } else
+                    return false; // Does not match.
+                
+            });
+        });
+        
+        // Wrapping filtered list in a sorted list.
+        SortedList<Part> sortedParts = new SortedList<>(filteredParts);        
+        SortedList<Product> sortedProducts = new SortedList<>(filteredProducts);
+        
+        // Binding the sorted list comparator to the TableView comparator.
+        sortedParts.comparatorProperty().bind(partTableView.comparatorProperty());
+        sortedProducts.comparatorProperty().bind(productTableView.comparatorProperty());
+        
+        // Adding sorted (and filtered) parts to table.
+        partTableView.setItems(sortedParts);
+        productTableView.setItems(sortedProducts);
     }    
     
 }

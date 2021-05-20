@@ -30,8 +30,11 @@ public class CDInventorySystem extends Application {
         partId = Inventory.getNewPartId();
         OutsourcedPart bikeSeat = new OutsourcedPart(partId,"Seat", 15.00, 10, 1, 15, "Schwinn");
         Inventory.addPart(bikeSeat);
+        partId = Inventory.getNewPartId();
+        InHousePart bikeHorn = new InHousePart(partId,"Horn", 5.00, 10, 1, 15, 103);
+        Inventory.addPart(bikeHorn);
         
-        // Add sample products
+        // Add sample product
         int productId = Inventory.getNewProductId();
         Product bike1 = new Product(productId, "Giant Bike", 299.99, 5, 1, 10);
         bike1.addAssociatedPart(bikeBrakes);
@@ -42,8 +45,8 @@ public class CDInventorySystem extends Application {
         productId = Inventory.getNewProductId();
         Product bike2 = new Product(productId, "Tricycle", 99.99, 3, 1, 10);
         bike2.addAssociatedPart(bikeBrakes);
-        bike2.addAssociatedPart(bikeWheel);
         bike2.addAssociatedPart(bikeSeat);
+        bike2.addAssociatedPart(bikeHorn);
         Inventory.addProduct(bike2);
         
         launch(args);

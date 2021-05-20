@@ -105,7 +105,7 @@
                            <children>
                               <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
                                  <children>
-                                    <TextField onAction="#onActionSearchPart" prefHeight="25.0" prefWidth="173.0" promptText="Search by Part ID or Name" />
+                                    <TextField fx:id="partSearchBox" prefHeight="25.0" prefWidth="173.0" promptText="Search by Part ID or Name" />
                                  </children>
                                  <padding>
                                     <Insets bottom="-5.0" left="10.0" />
