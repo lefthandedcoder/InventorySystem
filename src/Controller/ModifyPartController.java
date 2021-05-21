@@ -182,7 +182,7 @@ public class ModifyPartController implements Initializable {
             boolean partAdded = false;
         
         if (name.isEmpty()) {
-                //Name empty exception
+                //RUNTIME ERROR: Name empty exception
                 errorLabel.setVisible(true);
                 errorTxtLabel.setText("Name cannot be empty.");
                 errorTxtLabel.setVisible(true);
@@ -197,7 +197,7 @@ public class ModifyPartController implements Initializable {
                                 Inventory.addPart(newInHousePart);
                                 partAdded = true;
                             } catch (Exception e) {
-                            //Invalid machine ID error
+                            //LOGICAL ERROR: Invalid machine ID error
                             errorLabel.setVisible(true);
                             errorTxtLabel.setText("Invalid machine ID.");
                             errorTxtLabel.setVisible(true);
@@ -230,7 +230,7 @@ public class ModifyPartController implements Initializable {
                     }
                 }
         } catch(Exception e) {
-            //Blank fields exception
+            //RUNTIME ERROR: Blank fields exception
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Form contains blank fields or errors.");
             errorTxtLabel.setVisible(true);
@@ -250,7 +250,7 @@ public class ModifyPartController implements Initializable {
 
         if (min <= 0 || min >= max) {
             minLess = false;
-            //Min value error
+            //LOGICAL ERROR: Min value error
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Min must be less than Max.");
             errorTxtLabel.setVisible(true);
@@ -272,7 +272,7 @@ public class ModifyPartController implements Initializable {
 
         if (stock < min || stock > max) {
             invBetween = false;
-            //Inventory value error
+            //LOGICAL ERROR: Inventory value error
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Inventory must be less than Max and greater than Min.");
             errorTxtLabel.setVisible(true);

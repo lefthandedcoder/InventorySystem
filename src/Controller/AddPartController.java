@@ -173,7 +173,7 @@ public class AddPartController implements Initializable {
             boolean partAdded = false;
 
             if (name.isEmpty()) {
-                //Name empty exception
+                //RUNTIME ERROR: Name empty exception
                 errorLabel.setVisible(true);
                 errorTxtLabel.setText("Name cannot be empty.");
                 errorTxtLabel.setVisible(true);
@@ -220,7 +220,7 @@ public class AddPartController implements Initializable {
                     }
                 }
         } catch(Exception e) {
-            //Blank fields exception
+            //RUNTIME ERROR: Blank fields exception
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Form contains blank fields or errors.");
             errorTxtLabel.setVisible(true);
@@ -240,7 +240,7 @@ public class AddPartController implements Initializable {
 
         if (min <= 0 || min >= max) {
             minLess = false;
-            //Min value error
+            //LOGICAL ERROR: Min value error
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Min must be less than Max.");
             errorTxtLabel.setVisible(true);
@@ -262,7 +262,7 @@ public class AddPartController implements Initializable {
 
         if (stock < min || stock > max) {
             invBetween = false;
-            //Inventory value error
+            //LOGICAL ERROR: Inventory value error
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Inventory must be less than Max and greater than Min.");
             errorTxtLabel.setVisible(true);

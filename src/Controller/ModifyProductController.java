@@ -1,4 +1,4 @@
-// Future project for this controller is to add a select all feature to the parts tables
+// FUTURE ENHANCEMENT for this controller is to add a select all feature to the parts tables
 
 package Controller;
 
@@ -225,7 +225,7 @@ public class ModifyProductController implements Initializable {
             boolean productAdded = false;
 
             if (name.isEmpty()) {
-                //Name empty exception
+                //RUNTIME ERROR: Name empty exception
                 errorLabel.setVisible(true);
                 errorTxtLabel.setText("Name cannot be empty.");
                 errorTxtLabel.setVisible(true);
@@ -265,7 +265,7 @@ public class ModifyProductController implements Initializable {
                         }
                     }
         } catch(Exception e) {
-            //Blank fields exception
+            //RUNTIME ERROR: Blank fields exception
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Form contains blank fields or errors.");
             errorTxtLabel.setVisible(true);
@@ -284,7 +284,7 @@ public class ModifyProductController implements Initializable {
 
         if (min <= 0 || min >= max) {
             minLess = false;
-            //Min value error
+            //LOGICAL ERROR: Min value error
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Min must be less than Max.");
             errorTxtLabel.setVisible(true);
@@ -306,7 +306,7 @@ public class ModifyProductController implements Initializable {
 
         if (stock < min || stock > max) {
             invBetween = false;
-            //Inventory value error
+            //LOGICAL ERROR: Inventory value error
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Inventory must be less than Max and greater than Min.");
             errorTxtLabel.setVisible(true);
@@ -323,7 +323,7 @@ public class ModifyProductController implements Initializable {
     void onActionRemovePart(ActionEvent event) {
         Part currPart = currPartsTableView.getSelectionModel().getSelectedItem();
         if (currPart == null) {
-            // No part selected
+            //RUNTIME ERROR: No part selected
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Remove Part");
             alert.setContentText("Part not selected.");

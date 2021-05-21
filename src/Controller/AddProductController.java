@@ -208,7 +208,7 @@ public class AddProductController implements Initializable {
     void onActionRemovePart(ActionEvent event) {
         Part currPart = currPartsTableView.getSelectionModel().getSelectedItem();
         if (currPart == null) {
-            //No part selected
+            //RUNTIME ERROR: No part selected
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Remove Part");
             alert.setContentText("Part not selected.");
@@ -245,7 +245,7 @@ public class AddProductController implements Initializable {
             boolean productAdded = false;
 
             if (name.isEmpty()) {
-                //Name empty exception
+                //RUNTIME ERROR: Name empty exception
                 errorLabel.setVisible(true);
                 errorTxtLabel.setText("Name cannot be empty.");
                 errorTxtLabel.setVisible(true);
@@ -280,7 +280,7 @@ public class AddProductController implements Initializable {
                         }
                     }
         } catch(Exception e) {
-            //Blank fields exception
+            //RUNTIME ERROR: Blank fields exception
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Form contains blank fields or errors.");
             errorTxtLabel.setVisible(true);

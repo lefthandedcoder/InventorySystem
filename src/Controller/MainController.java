@@ -1,3 +1,7 @@
+/*FUTURE ENHANCEMENT would be to add a delete all feature 
+for the two tables and for a select all/delete all 
+feature for the parts tables in the add/modify product windows */
+
 package Controller;
 
 import java.io.IOException;
@@ -162,7 +166,7 @@ public class MainController implements Initializable {
     void onActionDeletePart(ActionEvent event) {
         Part partDelete = partTableView.getSelectionModel().getSelectedItem();
         if (partDelete == null) {
-            //No part selected
+            //RUNTIME ERROR: No part selected
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Delete Part");
             alert.setContentText("Part not selected.");
@@ -188,7 +192,7 @@ public class MainController implements Initializable {
     void onActionDeleteProduct(ActionEvent event) {
         Product productDelete = productTableView.getSelectionModel().getSelectedItem();
         if (productDelete == null) {
-            //No product selected
+            //RUNTIME ERROR: No product selected
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Delete Product");
             alert.setContentText("Product not selected.");
@@ -252,6 +256,7 @@ public class MainController implements Initializable {
     void onActionDisplayModifyPart(ActionEvent event) throws IOException {
         partModify = partTableView.getSelectionModel().getSelectedItem();
         if (partModify == null) {
+            //RUNTIME ERROR:
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Modify Part");
             alert.setContentText("Part not selected.");
@@ -329,26 +334,28 @@ public class MainController implements Initializable {
         partSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 // If filter text is empty, display all parts
-            
                 if (newValue == null || newValue.isEmpty()) {
                     partSearchLabel.setVisible(false);
                     return true;
                 }
-            
+                
                 //Compare all part names
                 String search = newValue.toLowerCase();
                 
                 if (part.getName().toLowerCase().contains(search) || Integer.valueOf(part.getId()).toString().equals(search)) {
+                    partSearchLabel.setText("Parts found!");
+                    partSearchLabel.setVisible(true);
                     return true; // Filter matches part name or id.
                 } else {
-                    partSearchLabel.setText("Part not found!");
-                    partSearchLabel.setVisible(true);
                     return false; // Does not match.
                 }
-                
             });
+            // Displays "not found" message    
+            if(filteredParts.isEmpty()){
+                partSearchLabel.setText("Parts not found!");
+                partSearchLabel.setVisible(true);
+            }
         });
-        
         // Setting the filter predicate whenever the filter changes
         productSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredProducts.setPredicate(product -> {
@@ -363,13 +370,18 @@ public class MainController implements Initializable {
                 String search = newValue.toLowerCase();
                 
                 if (product.getName().toLowerCase().contains(search) || Integer.valueOf(product.getId()).toString().equals(search)) {
+                    productSearchLabel.setText("Products found!");
+                    productSearchLabel.setVisible(true);
                     return true; // Filter matches product name or id.
                 } else {
-                    productSearchLabel.setText("Product not found!");
-                    productSearchLabel.setVisible(true);
                     return false; // Does not match.
                 }
             });
+            // Displays "not found" message    
+            if(filteredProducts.isEmpty()){
+                productSearchLabel.setText("Products not found!");
+                productSearchLabel.setVisible(true);
+        }
         });
         
         // Wrapping filtered list in a sorted list.
@@ -383,6 +395,5 @@ public class MainController implements Initializable {
         // Adding sorted (and filtered) parts to table.
         partTableView.setItems(sortedParts);
         productTableView.setItems(sortedProducts);
-    }    
-    
+    }
 }
