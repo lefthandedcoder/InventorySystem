@@ -1,5 +1,3 @@
-// FUTURE ENHANCEMENT for this controller is to add a select all feature to the parts tables
-
 package Controller;
 
 import java.io.IOException;
@@ -208,7 +206,8 @@ public class ModifyProductController implements Initializable {
         }
     }
 
-    /**
+    /** RUNTIME ERROR: When fields are blank or values do not match data types,
+     * the system cannot handle the action event. The try/catch code catches these errors
      * Modify event
      * @param event
      * @throws IOException
@@ -225,7 +224,7 @@ public class ModifyProductController implements Initializable {
             boolean productAdded = false;
 
             if (name.isEmpty()) {
-                //RUNTIME ERROR: Name empty exception
+                /**RUNTIME ERROR: Name empty exception*/
                 errorLabel.setVisible(true);
                 errorTxtLabel.setText("Name cannot be empty.");
                 errorTxtLabel.setVisible(true);
@@ -265,7 +264,7 @@ public class ModifyProductController implements Initializable {
                         }
                     }
         } catch(Exception e) {
-            //RUNTIME ERROR: Blank fields exception
+            /**RUNTIME ERROR: Blank fields exception*/
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Form contains blank fields or errors.");
             errorTxtLabel.setVisible(true);
@@ -276,7 +275,7 @@ public class ModifyProductController implements Initializable {
      * Method for checking for min logical error
      * @param min
      * @param max
-     * @return
+     * @return checks for min inventory logical error
      */
     private boolean minVerify(int min, int max) {
 
@@ -284,7 +283,7 @@ public class ModifyProductController implements Initializable {
 
         if (min <= 0 || min >= max) {
             minLess = false;
-            //LOGICAL ERROR: Min value error
+            /**LOGICAL ERROR: Min value error*/
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Min must be less than Max.");
             errorTxtLabel.setVisible(true);
@@ -298,7 +297,7 @@ public class ModifyProductController implements Initializable {
      * @param min
      * @param max
      * @param stock
-     * @return
+     * @return checks for inventory logical error
      */
     private boolean inventoryVerify(int min, int max, int stock) {
 
@@ -306,7 +305,7 @@ public class ModifyProductController implements Initializable {
 
         if (stock < min || stock > max) {
             invBetween = false;
-            //LOGICAL ERROR: Inventory value error
+            /**LOGICAL ERROR: Inventory value error*/
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Inventory must be less than Max and greater than Min.");
             errorTxtLabel.setVisible(true);

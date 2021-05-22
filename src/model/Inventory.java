@@ -76,7 +76,7 @@ public class Inventory {
     /**
      *
      * @param partID retrieves part ID from inventory search
-     * @return
+     * @return list of parts found by ID
      */
     public static Part lookupPart(int partID){
         Part partLookup = null;
@@ -92,8 +92,8 @@ public class Inventory {
     
     /**
      *
-     * @param productID retrieves product ID from inventory search
-     * @return
+     * @param productID
+     * @return list of products found by ID
      */
     public static Product lookupProduct(int productID){
         Product productLookup = null;
@@ -109,8 +109,8 @@ public class Inventory {
     
     /**
      *
-     * @param partName retrieves part name from inventory search
-     * @return
+     * @param partName
+     * @return list of parts found by name
      */
     public static ObservableList<Part> lookupPart(String partName){
         for (Part part : allParts) {
@@ -124,8 +124,8 @@ public class Inventory {
     
     /**
      *
-     * @param productName retrieves product name from inventory search
-     * @return
+     * @param productName
+     * @return list of products found by name
      */
     public static ObservableList<Product> lookupProduct(String productName){
         productsLookup = null;
@@ -160,7 +160,7 @@ public class Inventory {
     /**
      *
      * @param selectedPart part to delete
-     * @return
+     * @return deletes part if found
      */
     public static boolean deletePart(Part selectedPart){
         if (allParts.contains(selectedPart)){
@@ -175,7 +175,7 @@ public class Inventory {
     /**
      *
      * @param selectedProduct product to delete
-     * @return
+     * @return deletes product if found
      */
     public static boolean deleteProduct(Product selectedProduct){
         if (allProducts.contains(selectedProduct)){
@@ -189,7 +189,7 @@ public class Inventory {
     
     /**
      * gets all parts
-     * @return
+     * @return all parts
      */
     public static ObservableList<Part> getAllParts(){
         return allParts;
@@ -197,7 +197,7 @@ public class Inventory {
     
     /**
      * gets all products
-     * @return
+     * @return all products
      */
     public static ObservableList<Product> getAllProducts(){
         return allProducts;

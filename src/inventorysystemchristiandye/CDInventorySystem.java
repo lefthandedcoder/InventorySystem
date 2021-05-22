@@ -16,7 +16,13 @@ import model.Product;
  */
 public class CDInventorySystem extends Application {
 
-    /**
+    /** Java docs can be accessed from "InventorySystemChristianDye\dist\javadoc"
+     * This is the main method for this inventory management system.
+     * FUTURE ENHANCEMENT for this controller is to 
+     * add a select all feature to the parts tables 
+     * in the add/modify product screens. This would
+     * allow for batch removal or batch adds of parts.
+
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -53,8 +59,8 @@ public class CDInventorySystem extends Application {
     }
 
     /**
-     *
-     * @param stage sets stage for application
+     * Starts the application
+     * @param stage
      * @throws Exception
      */
     @Override

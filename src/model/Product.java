@@ -170,7 +170,7 @@ public class Product {
     /**
      *
      * @param selectedAssociatedPart deletes selected part association
-     * @return
+     * @return true if there is an associated part
      */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart){
         if (associatedParts.contains(selectedAssociatedPart)){

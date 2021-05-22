@@ -162,7 +162,8 @@ public class ModifyPartController implements Initializable {
 
     }
 
-    /**
+    /** RUNTIME ERROR: When fields are blank or values do not match data types,
+     * the system cannot handle the action event. The try/catch code catches these errors
      * Modify event
      * @param event
      * @throws IOException
@@ -242,7 +243,7 @@ public class ModifyPartController implements Initializable {
      * Method for checking for min inventory logical error
      * @param min
      * @param max
-     * @return
+     * @return checks for min inventory logical error
      */
     private boolean minVerify(int min, int max) {
 
@@ -264,7 +265,7 @@ public class ModifyPartController implements Initializable {
      * @param min
      * @param max
      * @param stock
-     * @return
+     * @return checks for inventory logical error
      */
     private boolean inventoryVerify(int min, int max, int stock) {
 

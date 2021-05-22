@@ -208,7 +208,7 @@ public class AddProductController implements Initializable {
     void onActionRemovePart(ActionEvent event) {
         Part currPart = currPartsTableView.getSelectionModel().getSelectedItem();
         if (currPart == null) {
-            //RUNTIME ERROR: No part selected
+            /**RUNTIME ERROR: When part selected system doesn't know what to do*/
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Remove Part");
             alert.setContentText("Part not selected.");
@@ -227,7 +227,8 @@ public class AddProductController implements Initializable {
         }
     }
 
-    /**
+    /** RUNTIME ERROR: When fields are blank or values do not match data types,
+     * the system cannot handle the action event. The try/catch code catches these errors
      * Save product event
      * @param event
      * @throws IOException
@@ -245,7 +246,7 @@ public class AddProductController implements Initializable {
             boolean productAdded = false;
 
             if (name.isEmpty()) {
-                //RUNTIME ERROR: Name empty exception
+                /**RUNTIME ERROR: When name is empty the system doesn't know what to add to variable*/
                 errorLabel.setVisible(true);
                 errorTxtLabel.setText("Name cannot be empty.");
                 errorTxtLabel.setVisible(true);
@@ -280,7 +281,7 @@ public class AddProductController implements Initializable {
                         }
                     }
         } catch(Exception e) {
-            //RUNTIME ERROR: Blank fields exception
+            /**RUNTIME ERROR: Blank fields exception. Throws the system off when there's nothing to add or things are missing.*/
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Form contains blank fields or errors.");
             errorTxtLabel.setVisible(true);
@@ -291,7 +292,7 @@ public class AddProductController implements Initializable {
      * Checks for min inventory logical error
      * @param min
      * @param max
-     * @return
+     * @return check for inventory logical error
      */
     private boolean minVerify(int min, int max) {
 
@@ -299,7 +300,7 @@ public class AddProductController implements Initializable {
 
         if (min <= 0 || min >= max) {
             minLess = false;
-            //Min value error
+            /**LOGICAL ERROR: Min value error*/
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Min must be less than Max.");
             errorTxtLabel.setVisible(true);
@@ -313,7 +314,7 @@ public class AddProductController implements Initializable {
      * @param min
      * @param max
      * @param stock
-     * @return
+     * @return check for inventory logical error
      */
     private boolean inventoryVerify(int min, int max, int stock) {
 
@@ -321,7 +322,7 @@ public class AddProductController implements Initializable {
 
         if (stock < min || stock > max) {
             invBetween = false;
-            //Inventory value error
+            /**LOGICAL ERROR: Inventory value error*/
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Inventory must be less than Max and greater than Min.");
             errorTxtLabel.setVisible(true);
@@ -357,23 +358,27 @@ public class AddProductController implements Initializable {
         partSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 // If filter text is empty, display all parts
-            
                 if (newValue == null || newValue.isEmpty()) {
                     partSearchLabel.setVisible(false);
                     return true;
                 }
-            
+                
                 //Compare all part names
                 String search = newValue.toLowerCase();
                 
                 if (part.getName().toLowerCase().contains(search) || Integer.valueOf(part.getId()).toString().equals(search)) {
+                    partSearchLabel.setText("Parts found!");
+                    partSearchLabel.setVisible(true);
                     return true; // Filter matches part name or id.
                 } else {
-                    partSearchLabel.setText("Part not found!");
-                    partSearchLabel.setVisible(true);
                     return false; // Does not match.
                 }
             });
+            // Displays "not found" message    
+            if(filteredParts.isEmpty()){
+                partSearchLabel.setText("Parts not found!");
+                partSearchLabel.setVisible(true);
+            }
         });
         
         // Wrapping filtered list in a sorted list.

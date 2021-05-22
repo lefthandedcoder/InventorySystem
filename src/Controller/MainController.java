@@ -1,7 +1,3 @@
-/*FUTURE ENHANCEMENT would be to add a delete all feature 
-for the two tables and for a select all/delete all 
-feature for the parts tables in the add/modify product windows */
-
 package Controller;
 
 import java.io.IOException;
@@ -9,7 +5,6 @@ import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -158,7 +153,9 @@ public class MainController implements Initializable {
     @FXML
     private Label productSearchLabel;
 
-    /**
+    /** RUNTIME ERROR: When no object is selected,
+     * the system cannot handle the action event. A pop-up box appears
+     * prompting the user to select an object.
      * Delete part event
      * @param event
      */
@@ -166,7 +163,6 @@ public class MainController implements Initializable {
     void onActionDeletePart(ActionEvent event) {
         Part partDelete = partTableView.getSelectionModel().getSelectedItem();
         if (partDelete == null) {
-            //RUNTIME ERROR: No part selected
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Delete Part");
             alert.setContentText("Part not selected.");
@@ -184,7 +180,9 @@ public class MainController implements Initializable {
         }
     }
 
-    /**
+    /** RUNTIME ERROR: When no object is selected,
+     * the system cannot handle the action event. A pop-up box appears
+     * prompting the user to select an object.
      * Delete product event
      * @param event
      */
@@ -192,7 +190,6 @@ public class MainController implements Initializable {
     void onActionDeleteProduct(ActionEvent event) {
         Product productDelete = productTableView.getSelectionModel().getSelectedItem();
         if (productDelete == null) {
-            //RUNTIME ERROR: No product selected
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Delete Product");
             alert.setContentText("Product not selected.");
@@ -208,7 +205,6 @@ public class MainController implements Initializable {
 
                 ObservableList<Part> assocParts = productDelete.getAllAssociatedParts();
                 
-                // Associated parts exception
                 if (assocParts.size() >= 1) {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Parts Associated");
@@ -247,7 +243,9 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    /**
+    /** RUNTIME ERROR: When no object is selected,
+     * the system cannot handle the action event. A pop-up box appears
+     * prompting the user to select an object.
      * Modify part event
      * @param event
      * @throws IOException
@@ -256,7 +254,6 @@ public class MainController implements Initializable {
     void onActionDisplayModifyPart(ActionEvent event) throws IOException {
         partModify = partTableView.getSelectionModel().getSelectedItem();
         if (partModify == null) {
-            //RUNTIME ERROR:
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Modify Part");
             alert.setContentText("Part not selected.");
@@ -269,7 +266,9 @@ public class MainController implements Initializable {
         }        
     }
 
-    /**
+    /** RUNTIME ERROR: When no object is selected,
+     * the system cannot handle the action event. A pop-up box appears
+     * prompting the user to select an object.
      * Modify product event
      * @param event
      * @throws IOException

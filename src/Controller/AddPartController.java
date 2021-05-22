@@ -153,7 +153,8 @@ public class AddPartController implements Initializable {
         partIDLabel.setText("Company Name");
     }
 
-    /**
+    /** RUNTIME ERROR: When fields are blank or values do not match data types,
+     * the system cannot handle the action event. The try/catch code catches these errors
      * Part save event
      * @param event
      * @throws java.io.IOException
@@ -229,10 +230,10 @@ public class AddPartController implements Initializable {
     }
     
     /**
-     * Checks for min inventory logical error
+     * This resolves the logical error where min is greater than max
      * @param min
      * @param max
-     * @return
+     * @return minLess
      */
     private boolean minVerify(int min, int max) {
 
@@ -240,7 +241,6 @@ public class AddPartController implements Initializable {
 
         if (min <= 0 || min >= max) {
             minLess = false;
-            //LOGICAL ERROR: Min value error
             errorLabel.setVisible(true);
             errorTxtLabel.setText("Min must be less than Max.");
             errorTxtLabel.setVisible(true);
@@ -250,11 +250,11 @@ public class AddPartController implements Initializable {
     }
     
     /**
-     * Checks for inventory logical error
+     * This addresses the logical error where inventory is not within the min and max settings
      * @param min
      * @param max
      * @param stock
-     * @return
+     * @return invBetween
      */
     private boolean inventoryVerify(int min, int max, int stock) {
 
